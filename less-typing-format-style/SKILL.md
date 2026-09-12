@@ -203,11 +203,17 @@ value-initializes, and `std::shared_ptr<int> p;` default-constructs. Never short
 ## Reference .clang-format
 
 The full settings required by this skill (all other options may follow Google /
-Chromium defaults):
+Chromium defaults).
+
+`BasedOnStyle` is **not** one of the settings this skill imposes. If the existing
+`.clang-format` already sets `BasedOnStyle` to `Google` or `Chromium`, **leave it
+unchanged** — both are valid bases for this style, and which one is used is the
+user's choice, not a formatting decision this skill overrides. Only add a
+`BasedOnStyle` when none is present, and then use `Google`:
 
 ```yaml
 Language: Cpp
-BasedOnStyle: Google
+BasedOnStyle: Google   # only when absent; keep an existing Google/Chromium value
 
 IndentWidth: 2
 
@@ -264,6 +270,8 @@ When formatting or reviewing C++ code, verify:
 5. Initialization uses `{}` with default values omitted; classes with a default
    constructor are declared without braces.
 6. Any `.clang-format` produced contains the settings in **Reference .clang-format**.
+7. When editing an existing `.clang-format` whose `BasedOnStyle` is already `Google`
+   or `Chromium`, `BasedOnStyle` is left untouched.
 
 Formatting choices are only adjusted when the information content is unchanged.
 Never trade away naming clarity or readability to type fewer characters.
